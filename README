@@ -1,0 +1,10 @@
+ESP8266-Sigofx-trackr is a ESP8266 / Arduino based WiFi tracking solution using Sigfox Atlas WiFi geoloction service.
+
+This project uses an ESP8266 as main MCU and for WiFi scanning on regular basis. The 2 best Access Points MAC address are reported over Sigfox network using a Wisol WSSFM10R1 module.
+
+This project is implementing Low Power feature on ESP8266 and Wisol module to reach a couple of uA most of the time. It includes different sub-library for managing:
+ - ESP low power switch with context backup on RTC memory
+ - ESP logging feature with flash storage and level filtering
+ - Wisol module access library
+
+ You will find more information about this sketch on my website https://www.disk91.com
