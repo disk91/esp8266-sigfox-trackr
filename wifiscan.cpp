@@ -27,15 +27,13 @@
 
 WifiScanClass wifiscanService;
 
-#define WIFISCAN_SSIDFILTERLEN  7
+#define WIFISCAN_SSIDFILTERLEN  5
 static const char  ssidFiltered[WIFISCAN_SSIDFILTERLEN][16]= {
   "android",
   "phone",
   "samsung",
   "huawei",
-  "HUAWEI",
-  "Phone",
-  "TP-DIS" 
+  "tp-dis" 
 };
 
 /**
@@ -106,6 +104,7 @@ bool WifiScanClass::filtering(int index) {
 
   // Test SSID 
   String ssid = WiFi.SSID(index);
+  ssid.toLowerCase();
   for (int i=0 ; i < WIFISCAN_SSIDFILTERLEN ; i++) {
     if ( ssid.indexOf(ssidFiltered[i]) > 0 ) return true;
   }
