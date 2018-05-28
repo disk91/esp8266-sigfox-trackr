@@ -27,12 +27,15 @@
 
 WifiScanClass wifiscanService;
 
-#define WIFISCAN_SSIDFILTERLEN  4
+#define WIFISCAN_SSIDFILTERLEN  7
 static const char  ssidFiltered[WIFISCAN_SSIDFILTERLEN][16]= {
   "android",
   "phone",
   "samsung",
-  "huawei" 
+  "huawei",
+  "HUAWEI",
+  "Phone",
+  "TP-DIS" 
 };
 
 /**

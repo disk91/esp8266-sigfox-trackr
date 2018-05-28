@@ -58,12 +58,12 @@ void TrackrClass::boot(uint32_t elapsedTime) {
 
     // Boot messages
     _log.any("*** boot - TrackR - version %02X \r\n",FIRMWARE_VERSION);
-    _log.debug("Sdk version: %s\n", ESP.getSdkVersion()); 
-    _log.debug("Core Version: %s\n", ESP.getCoreVersion().c_str());  
-    _log.debug("Boot Version: %u\n", ESP.getBootVersion());  
-    _log.debug("Boot Mode: %u\n", ESP.getBootMode());  
-    _log.debug("CPU Frequency: %u MHz\n", ESP.getCpuFreqMHz());
-    _log.debug("Flash Size: %u \n", ESP.getFlashChipSize());
+    _log.debug("Sdk version: %s\r\n", ESP.getSdkVersion()); 
+    _log.debug("Core Version: %s\r\n", ESP.getCoreVersion().c_str());  
+    _log.debug("Boot Version: %u\r\n", ESP.getBootVersion());  
+    _log.debug("Boot Mode: %u\r\n", ESP.getBootMode());  
+    _log.debug("CPU Frequency: %u MHz\r\n", ESP.getCpuFreqMHz());
+    _log.debug("Flash Size: %u \r\n", ESP.getFlashChipSize());
 
 
 
@@ -92,6 +92,7 @@ void TrackrClass::execute(uint32_t elapsedTime) {
     this->printTime();
 
     // Scan for Wifi
+    uint8_t msg[12];
     wifiscanService.startScan(6000,4,true);
     if ( wifiscanService.getFirstAndSecondBestWiFi(mac1, mac2) == 2 ) {
       char macStr[20];
@@ -101,17 +102,21 @@ void TrackrClass::execute(uint32_t elapsedTime) {
       _log.info("2. %s\r\n",macStr);   
 
       // Prepare the frame !
-      uint8_t msg[12];
       for ( int i = 0 ; i < 6 ; i++ ) {
         msg[i]=mac1[i];
         msg[i+6]=mac2[i];
       }
-      wisolService.wakeUp();
-      wisolService.sendRaw(msg,12,false,NULL);
-      wisolService.sleepMode();
+    } else {
+      // send a frame with MAC 00:00:00:00:00:00 to get a network position
+      for ( int i = 0 ; i < 12 ; i++ ) {
+        msg[i]=0;
+      }      
     }
+    wisolService.wakeUp();
+    wisolService.sendRaw(msg,12,false,NULL);
+    wisolService.sleepMode();
 
-    // Preparre to sleep
+    // Prepare to sleep
     _log.close();
     state.totalMs += elapsedTime + (millis() - start);
 }
