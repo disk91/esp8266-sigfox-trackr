@@ -8,3 +8,8 @@ This project is implementing Low Power feature on ESP8266 and Wisol module to re
  - Wisol module access library
 
  You will find more information about this sketch on my website https://www.disk91.com
+ And the related blog post is https://www.disk91.com/2018/technology/sigfox/create-a-5-autonomous-tracker-with-esp8266-and-sigfox/
+ 
+Specific dependency :
+* SoftwareSerial - https://github.com/plerup/espsoftwareserial - **/!\ version > 3.4.1 is recommended**
+
