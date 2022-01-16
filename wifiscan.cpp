@@ -106,7 +106,7 @@ bool WifiScanClass::filtering(int index) {
   String ssid = WiFi.SSID(index);
   ssid.toLowerCase();
   for (int i=0 ; i < WIFISCAN_SSIDFILTERLEN ; i++) {
-    if ( ssid.indexOf(ssidFiltered[i]) > 0 ) return true;
+    if ( ssid.indexOf(ssidFiltered[i]) > -1 ) return true;
   }
 
   return false;
